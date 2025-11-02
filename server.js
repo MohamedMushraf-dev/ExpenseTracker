@@ -27,6 +27,7 @@ app.use(express.static('public'));
 // --- API Endpoints (Full CRUD) ---
 
 // 1. CREATE (C)
+// 1. CREATE (C)
 app.post('/api/expenses', async (req, res) => {
   try {
     const { description, amount } = req.body;
@@ -41,7 +42,14 @@ app.post('/api/expenses', async (req, res) => {
 
     res.status(201).json(newExpense.rows[0]);
   } catch (err) {
-    console.error(err.message);
+    
+    // --- THIS IS THE NEW PART ---
+    console.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    console.error("--- CREATE EXPENSE FAILED ---");
+    console.error(err); // Log the FULL error object
+    console.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    // --- END OF NEW PART ---
+
     res.status(500).json({ error: 'Internal server error' });
   }
 });
