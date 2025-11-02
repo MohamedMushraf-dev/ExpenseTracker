@@ -1,20 +1,15 @@
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Serve static files (like your HTML) from the 'public' folder
 // Load environment variables (like DATABASE_URL) from a .env file
 require('dotenv').config(); 
 
 const express = require('express');
 const { Pool } = require('pg'); // Import the pg (PostgreSQL) tool
 
-
+const app = express();
 const PORT = process.env.PORT || 3000;
 
 // --- Database Connection ---
 // The 'pg' library automatically looks for the DATABASE_URL
 // environment variable. On Render, this is set by the Environment Group.
-// For local testing, we'll set it in a .env file (see next step).
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   // If deploying to Render, you NEED this SSL configuration
@@ -102,7 +97,7 @@ app.delete('/api/expenses/:id', async (req, res) => {
 
 
 // Start the server
-// We only export the app for testing
+// We export the server for testing, but listen with the 'app'
 const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
